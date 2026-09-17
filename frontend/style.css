@@ -1,0 +1,262 @@
+/* ===== RESET ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg:        #0a0a0a;
+  --bg-panel:  #111111;
+  --bg-hover:  #1a1a1a;
+  --border:    #2a2a2a;
+  --fg:        #d8d8d8;
+  --fg-dim:    #6a6a6a;
+  --accent:    #1793d1;   /* Arch blue */
+  --accent-dim:#0e5f88;
+  --red:       #e06c75;
+  --yellow:    #e5c07b;
+  --green:     #98c379;
+  --mono: "JetBrains Mono", "Fira Code", "Cascadia Code",
+          "Consolas", "Courier New", monospace;
+}
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--mono);
+  font-size: 13px;
+  overflow: hidden;
+}
+
+/* ===== TERMINAL WRAPPER ===== */
+.terminal {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 0;
+}
+
+/* ===== TITLE BAR ===== */
+.titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: var(--bg-panel);
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--fg-dim);
+  flex-shrink: 0;
+}
+.dots { display: flex; gap: 6px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.dot.red    { background: var(--red); }
+.dot.yellow { background: var(--yellow); }
+.dot.green  { background: var(--green); }
+.title { color: var(--fg); }
+.title-right { color: var(--fg-dim); letter-spacing: 4px; }
+
+/* ===== PROMPT ===== */
+.prompt {
+  padding: 10px 16px;
+  font-size: 12px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  color: var(--fg-dim);
+}
+.prompt .user { color: var(--green); }
+.prompt .sep  { color: var(--fg-dim); margin: 0 2px; }
+.prompt .path { color: var(--accent); }
+.prompt .cmd  { color: var(--fg); margin-left: 6px; }
+
+/* ===== MAIN GRID ===== */
+.main-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  overflow: hidden;
+  min-height: 0;
+}
+
+.panel {
+  background: var(--bg-panel);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.panel-header {
+  padding: 10px 16px;
+  font-size: 12px;
+  color: var(--accent);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  letter-spacing: 0.5px;
+}
+
+/* ===== NOW PLAYING ===== */
+.now-playing-panel {
+  padding-bottom: 16px;
+}
+
+.now-playing {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 16px;
+  flex-shrink: 0;
+}
+
+.ascii-cover {
+  width: 72px;
+  height: 72px;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: var(--accent);
+  background: var(--bg);
+  flex-shrink: 0;
+}
+
+.song-info { overflow: hidden; min-width: 0; }
+.song-title {
+  font-size: 14px;
+  color: var(--fg);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 6px;
+}
+.song-artist { font-size: 12px; color: var(--fg-dim); }
+
+/* ===== PROGRESS ===== */
+.progress-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px 16px;
+  font-size: 11px;
+  color: var(--fg-dim);
+  flex-shrink: 0;
+}
+.progress-bar {
+  flex: 1;
+  height: 4px;
+  background: var(--border);
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--accent);
+  transition: width 0.3s linear;
+}
+
+/* ===== CONTROLS ===== */
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 16px;
+  flex-shrink: 0;
+}
+.controls button {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--fg);
+  font-family: var(--mono);
+  font-size: 12px;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.controls button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+#btn-play {
+  border-color: var(--accent-dim);
+  color: var(--accent);
+}
+#btn-play:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* ===== PLAYLIST ===== */
+.playlist {
+  list-style: none;
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+}
+.playlist li {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  transition: background 0.15s;
+  font-size: 12px;
+}
+.playlist li:hover { background: var(--bg-hover); }
+.playlist li.active {
+  background: var(--bg-hover);
+  border-left: 2px solid var(--accent);
+  color: var(--accent);
+}
+.playlist li .title-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.playlist li .duration { color: var(--fg-dim); flex-shrink: 0; }
+
+/* ===== STATUS BAR ===== */
+.status-bar {
+  padding: 8px 16px;
+  font-size: 11px;
+  color: var(--fg-dim);
+  background: var(--bg-panel);
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+/* ===== SCROLLBAR ===== */
+.playlist::-webkit-scrollbar { width: 6px; }
+.playlist::-webkit-scrollbar-track { background: var(--bg); }
+.playlist::-webkit-scrollbar-thumb {
+  background: var(--border);
+}
+.playlist::-webkit-scrollbar-thumb:hover { background: var(--accent-dim); }
+
+/* ===== RESPONSIF ===== */
+/* Window sempit → 1 kolom, playlist di bawah */
+@media (max-width: 700px) {
+  .main-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+  .ascii-cover { width: 56px; height: 56px; font-size: 1.1rem; }
+  .song-title { font-size: 13px; }
+  .controls button { padding: 6px 10px; font-size: 11px; }
+  .title { display: none; } /* sembunyikan title di window sempit */
+}
+
+/* Window sangat sempit → sembunyikan elemen sekunder */
+@media (max-width: 420px) {
+  .titlebar .title-right { display: none; }
+  .prompt .cmd { display: none; }
+  .song-artist { font-size: 11px; }
+}
+
+/* Layar besar → 3 kolom (playlist lebih lebar) */
+@media (min-width: 1100px) {
+  .main-grid { grid-template-columns: 2fr 3fr; }
+  body { font-size: 14px; }
+}

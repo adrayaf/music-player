@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>arch-music</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="terminal">
+
+    <!-- Title bar -->
+    <div class="titlebar">
+      <span class="dots">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+      </span>
+      <span class="title">user@arch: ~/music-player</span>
+      <span class="title-right">─ □ ✕</span>
+    </div>
+
+    <!-- Header prompt -->
+    <div class="prompt">
+      <span class="user">user@arch</span><span class="sep">:</span><span class="path">~</span><span class="sep">$</span>
+      <span class="cmd">./music-player --list</span>
+    </div>
+
+    <div class="main-grid">
+
+      <!-- LEFT: Now Playing -->
+      <section class="panel now-playing-panel">
+        <div class="panel-header">:: now_playing</div>
+
+        <div class="now-playing">
+          <div class="ascii-cover">[ ♪ ]</div>
+          <div class="song-info">
+            <div class="song-title" id="current-title">no track loaded</div>
+            <div class="song-artist" id="current-artist">—</div>
+          </div>
+        </div>
+
+        <div class="progress-container">
+          <span id="current-time">0:00</span>
+          <div class="progress-bar">
+            <div id="progress-fill" class="progress-fill"></div>
+          </div>
+          <span id="total-time">0:00</span>
+        </div>
+
+        <div class="controls">
+          <button id="btn-prev" title="prev">[ ⏮ ]</button>
+          <button id="btn-play" title="play/pause">[ ▶ ]</button>
+          <button id="btn-stop" title="stop">[ ⏹ ]</button>
+          <button id="btn-next" title="next">[ ⏭ ]</button>
+        </div>
+      </section>
+
+      <!-- RIGHT: Playlist -->
+      <section class="panel playlist-panel">
+        <div class="panel-header">:: playlist <span id="track-count">(0)</span></div>
+        <ul id="playlist" class="playlist"></ul>
+      </section>
+
+    </div>
+
+    <!-- Status bar -->
+    <footer class="status-bar">
+      <span id="status">[ .. ] connecting to backend...</span>
+    </footer>
+
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>
