@@ -108,5 +108,5 @@ mutagen — MP3 metadata
 Electron — desktop shell
 HTML/CSS/JS — UI
 ---
-📸 Screenshot
+## 📸 Screenshot
 ![arch-music screenshot](docs/screenshot.png)
