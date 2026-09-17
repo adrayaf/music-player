@@ -26,7 +26,88 @@ A minimalist music player with **Arch Linux terminal aesthetic**, built with **P
 ---
 
 ## 🏗️ Architecture
+┌─────────────────────────────┐
+│ Electron (HTML/CSS/JS) │ ← UI, playlist, controls
+│ renderer.js → fetch() │
+└──────────────┬──────────────┘
+│ HTTP (localhost:5000)
+┌──────────────▼──────────────┐
+│ Flask API (Python) │ ← /songs /play /pause /stop
+│ pygame.mixer (audio) │
+│ mutagen (metadata) │
+└─────────────────────────────┘
 
-## 📸 Screenshot
 
-![arch-music screenshot](docs/screenshot.png)
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Python 3.10+
+- Node.js 18+
+
+### 1. Backend (Python)
+
+```bash
+cd backend
+python -m venv venv
+
+# Windows
+venv\Scripts\activate
+
+# Mac/Linux
+source venv/bin/activate
+
+pip install flask flask-cors pygame mutagen
+
+Taruh file .mp3 kamu ke backend/music/, lalu:
+python main.py
+Server jalan di http://127.0.0.1:5000.
+
+Frontend (Electron)
+Buka terminal baru:
+cd frontend
+npm install
+npm start
+
+🔌 API Endpoints
+Method	Endpoint	        Deskripsi
+GET	    /songs	            List semua lagu
+POST	/play/<filename>	Play lagu
+POST	/pause	            Pause
+POST	/resume	            Resume
+POST	/stop	            Stop
+GET	    /status	            Status player
+
+📁 Project Structure
+music-player/
+├── backend/
+│   ├── main.py           # Flask + pygame audio engine
+│   ├── requirements.txt
+│   └── music/            # taruh MP3 di sini
+├── frontend/
+│   ├── main.js           # Electron main process
+│   ├── index.html        # UI
+│   ├── style.css         # Arch theme
+│   ├── renderer.js       # UI logic
+│   └── package.json
+├── docs/
+│   └── screenshot.png
+├── .gitignore
+├── LICENSE
+└── README.md
+
+🛠️ Tech Stack
+Python 3.12 — backend logic
+Flask — REST API
+pygame — audio playback
+mutagen — MP3 metadata
+Electron — desktop shell
+HTML/CSS/JS — UI
+
+📸 Screenshot
+https://docs/screenshot.png
+
+📝 License
+MIT
+
