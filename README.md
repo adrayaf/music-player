@@ -107,10 +107,6 @@ pygame — audio playback
 mutagen — MP3 metadata
 Electron — desktop shell
 HTML/CSS/JS — UI
-
+---
 📸 Screenshot
-https://docs/screenshot.png
-
-📝 License
-MIT
-
+![arch-music screenshot](docs/screenshot.png)
