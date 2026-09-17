@@ -1,5 +1,8 @@
 # 🎵 arch-music
 
+![license](https://img.shields.io/badge/license-MIT-1793d1)
+![last commit](https://img.shields.io/github/last-commit/adrayaf/music-player?color=1793d1)
+
 A minimalist music player with **Arch Linux terminal aesthetic**, built with **Python (Flask + pygame)** backend and **Electron** frontend.
 
 > Multi-language desktop app: Python handles audio, HTML/CSS/JS handles UI.
@@ -23,3 +26,7 @@ A minimalist music player with **Arch Linux terminal aesthetic**, built with **P
 ---
 
 ## 🏗️ Architecture
+
+## 📸 Screenshot
+
+![arch-music screenshot](docs/screenshot.png)
