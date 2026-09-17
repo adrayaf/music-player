@@ -11,8 +11,6 @@ A minimalist music player with **Arch Linux terminal aesthetic**, built with **P
 ![python](https://img.shields.io/badge/python-3.12-3776ab)
 ![electron](https://img.shields.io/badge/electron-33-47848f)
 
----
-
 ## ✨ Features
 
 - 🎧 Play local MP3 files from `backend/music/`
@@ -24,20 +22,25 @@ A minimalist music player with **Arch Linux terminal aesthetic**, built with **P
 - 🔌 REST API between Python and Electron
 
 ---
-
 ## 🏗️ Architecture
-┌─────────────────────────────┐
-│ Electron (HTML/CSS/JS) │ ← UI, playlist, controls
-│ renderer.js → fetch() │
-└──────────────┬──────────────┘
-│ HTTP (localhost:5000)
-┌──────────────▼──────────────┐
-│ Flask API (Python) │ ← /songs /play /pause /stop
-│ pygame.mixer (audio) │
-│ mutagen (metadata) │
-└─────────────────────────────┘
 
+**Frontend (Electron)** → HTTP → **Backend (Flask)**
 
+| Layer | Teknologi | Fungsi |
+|-------|-----------|--------|
+| UI | HTML / CSS / JS | Tampilan, playlist, kontrol |
+| Desktop Shell | Electron | Buka window, jalankan UI |
+| API | Flask (Python) | REST endpoint: `/songs`, `/play`, `/pause`, `/stop` |
+| Audio Engine | pygame.mixer | Play / pause / stop audio |
+| Metadata | mutagen | Baca judul, artis, durasi MP3 |
+
+**Alur data:**
+
+1. Electron UI (`renderer.js`) fetch ke `http://127.0.0.1:5000/songs`
+2. Flask scan folder `backend/music/`, ambil metadata pakai mutagen
+3. UI tampilkan playlist
+4. User klik lagu → UI POST ke `/play/<filename>`
+5. Flask suruh pygame.mixer play audio
 ---
 
 ## 🚀 Getting Started
